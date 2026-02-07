@@ -108,5 +108,7 @@ Thumbs.db
 # Data
 data/raw/*
 !data/raw/.gitkeep
+!data/raw/*.csv
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/*.csv
