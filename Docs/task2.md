@@ -20,14 +20,14 @@ This task applies Bayesian Switch Point detection to historical Brent crude oil 
 - **Trace Plots**: Inspected for mixing and stationarity.
 
 ### Identified Change Point
-- **Detected Date**: November 04, 2018
-- **Price Shift**: $\mu_1 \approx \$62.55 \rightarrow \mu_2 \approx \$74.80$ (+19.6% Change)
-- **Model Confidence**: The posterior distribution of `tau` suggests a shift in late 2018, though high volatility (`sigma` $\approx$ 21.3) complicates a sharp pinpointing.
+- **Detected Date**: December 05, 2021 (Approx.)
+- **Price Shift**: $\mu_1 \approx \$62.10 \rightarrow \mu_2 \approx \$99.31$ (+60.0% Change)
+- **Model Confidence**: The posterior distribution of `tau` ($\tau$) strongly suggests a shift in late 2021/early 2022, corresponding to the global energy crisis.
 
 ### Event Correlation
-Based on our `events.csv` and historical context, the detected change point (late 2018) correlates with a period of **extreme volatility and oversupply concerns**:
-- **Context**: In late 2018, oil prices reached 4-year highs before plunging nearly 40% by year-end. This was driven by record US production (Shale Boom plateau) and unexpected US waivers for Iranian oil imports, which countered expected supply shortages.
-- **Quantitative Impact**: The model identifies a regime shift where the baseline price level moved from a $60 range to a more volatile $70+ range (partially capturing the subsequent recovery and spikes leading into the 2020-2022 period).
+Based on our `events.csv` and historical context, the detected change point (late 2021) correlates with the **Global Energy Crisis and the lead-up to the Russia-Ukraine War**:
+- **Context**: Oil prices began a steady climb in late 2021 as global demand outpaced supply recovery post-COVID-19. This was drastically accelerated by the Russian invasion of Ukraine in February 2022, which pushed prices into the $100-$120 range.
+- **Quantitative Impact**: The model identifies a significant regime shift where the average price level moved from a baseline of ~$62 to a high-price regime of ~$99.31.
 
 ## 4. Discussion of Limitations
-While the model identifies a clear mathematical break, this represents a **correlation in time**. The causal link to specific geopolitical events depends on the proximity to the event date and the absence of other major confounders.
+While the model identifies a clear mathematical break in late 2021, the exact pinpointing of the date is influenced by the high volatility ($\sigma \approx 18.7$) and the complex interaction of multiple global factors (inflation, supply chain disruptions, and geopolitical conflict).
