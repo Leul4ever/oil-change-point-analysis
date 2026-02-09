@@ -57,8 +57,8 @@ body {
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-  margin-bottom: 3rem;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
 }
 
 .dashboard-main {
@@ -66,18 +66,20 @@ body {
   grid-template-columns: minmax(0, 3fr) 400px;
   gap: 2.5rem;
   flex: 1;
+  margin-bottom: 2rem;
 }
 
 .chart-section {
   background: var(--bg-card);
   backdrop-filter: blur(12px);
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 1.5rem;
   border: 1px solid var(--border);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  min-height: 600px;
+  min-height: 280px;
+  max-height: 380px;
 }
 
 .events-sidebar {
@@ -87,7 +89,7 @@ body {
   border-radius: 1.5rem;
   border: 1px solid var(--border);
   overflow-y: auto;
-  max-height: calc(100vh - 400px);
+  max-height: 400px;
 }
 
 .events-sidebar h2 {
@@ -179,6 +181,10 @@ body {
   .insight-section {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
+  }
+
+  .chart-section {
+    min-height: 300px !important;
   }
 }
 

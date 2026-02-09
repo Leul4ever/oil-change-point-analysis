@@ -31,8 +31,8 @@ const PriceChart = ({ data, changePoints, events, activeEvent }) => {
     };
 
     return (
-        <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div style={{ flex: 1, minHeight: '500px' }}>
+        <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ flex: 1, minHeight: '250px' }}>
                 <ResponsiveContainer>
                     <LineChart
                         data={data}

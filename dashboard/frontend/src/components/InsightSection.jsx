@@ -45,7 +45,6 @@ const InsightSection = ({ changePoint, activeEvent }) => {
                     color: '#94a3b8',
                     lineHeight: '1.6'
                 }}>
-                    <div style={{ color: '#64748b', marginBottom: '0.5rem' }}>--- Task 2 Quantitative Impact Report ---</div>
                     <div>Detected Change Point Date: <span style={{ color: '#f1f5f9' }}>{changePoint?.date || 'N/A'}</span></div>
                     <div>Mean Price Before: <span style={{ color: '#f1f5f9' }}>${changePoint?.mu_before?.toFixed(2) || '0.00'}</span></div>
                     <div>Mean Price After: <span style={{ color: '#f1f5f9' }}>${changePoint?.mu_after?.toFixed(2) || '0.00'}</span></div>
