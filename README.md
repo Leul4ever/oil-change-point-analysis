@@ -2,9 +2,13 @@
 
 > **A Professional Bayesian Modeling & Interactive Dashboard Project**
 
-![Dashboard Preview](https://raw.githubusercontent.com/Leul4ever/oil-change-point-analysis/task-3/dashboard/preview.png)
+---
 
-This project provides an end-to-end framework for analyzing structural breaks in historical Brent crude oil prices. It combines the statistical rigor of **Bayesian Change Point Detection** with a high-performance **Interactive React Dashboard** for exploring geopolitical impacts on global energy markets.
+### 📷 Dashboard Preview
+![Dashboard Full Overview](Docs/figures/dashboard/preview.png)
+*Professional dark-themed dashboard with interactive price chart, Bayesian change point detection, event timeline, and V3.1 analytical insight cards.*
+
+---
 
 ---
 

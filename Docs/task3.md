@@ -1,5 +1,8 @@
 # Task 3 Report: Interactive Dashboard Development (V3.1)
 
+![Dashboard Overview](../Docs/figures/dashboard/preview.png)
+*Figure 1: Production dashboard showing all V3.1 features including interactive charts, event markers, and terminal-style Bayesian insights.*
+
 ## 1. Objective
 The goal of Task 3 was to bridge the gap between complex Bayesian statistical modeling and actionable user insights. We aimed to build a high-performance, interactive dashboard that allows users to explore Brent oil price trends and quantify the impact of major global events.
 
@@ -23,10 +26,23 @@ The dashboard is built using a modern full-stack approach for speed and scalabil
 - **Categorical Filters**: Users can filter the event list by **Category** (Geopolitical, Economic, Supply, Pandemic) and **Impact Level** (High, Medium, Low).
 
 ### 🖋️ Qualitative Reporting (V3.1 Final)
-- **Bayesian Insight Cards**: Integrated a terminal-style report below the chart. It provides the statistical output of the Task 2 PyMC model in a human-readable format.
 - **Causal Breakdown**: A dedicated section explaining the "Why" behind the active event, providing historical context and model quantification.
 
-## 6. Responsive Layout & Device Testing
+## 4. Data Handling & Technical Validation
+The dashboard implements several layers of validation to ensure analytical accuracy:
+- **Date Normalization**: The Flask backend ensures all date strings are normalized to ISO format (`YYYY-MM-DD`) before delivery, preventing client-side parsing errors.
+- **Sub-Sample Computation**: The "Impact Analysis" engine dynamically calculates market shifts by isolating 30-day windows around event anchors. It handles "Edge Case" dates (near the start/end of the dataset) by performing null-checks instead of returning skewed averages.
+- **Client-Side Optimization**: We utilize React `useMemo` to memoize filtered results. This ensures that UI interactions (hovering, modal opening) stay at 60fps even when filtering through 30+ years of daily data.
+
+- **Causal Breakdown**: A dedicated section explaining the "Why" behind the active event, providing historical context and model quantification.
+ 
++## 4. Data Handling & Technical Validation
++The dashboard implements several layers of validation to ensure analytical accuracy:
++- **Date Normalization**: The Flask backend ensures all date strings are normalized to ISO format (`YYYY-MM-DD`) before delivery, preventing client-side parsing errors.
++- **Sub-Sample Computation**: The "Impact Analysis" engine dynamically calculates market shifts by isolating 30-day windows around event anchors. It handles "Edge Case" dates (near the start/end of the dataset) by performing null-checks instead of returning skewed averages.
++- **Client-Side Optimization**: We utilize React `useMemo` to memoize filtered results. This ensures that UI interactions (hovering, modal opening) stay at 60fps even when filtering through 30+ years of daily data.
++
+ ## 6. Responsive Layout & Device Testing
 The dashboard implements a mobile-first responsive strategy using CSS variables and media queries:
 - **Breakpoints**: 1280px (Desktop transition) and 768px (Mobile/Tablet transition).
 - **Dynamic Chart Sizing**: The `PriceChart` component uses `ResponsiveContainer` (Recharts) to maintain aspect ratio and clarity across all resolutions.

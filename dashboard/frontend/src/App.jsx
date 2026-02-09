@@ -23,25 +23,49 @@ function App() {
 
     useEffect(() => {
         const fetchData = async () => {
+            console.log("Fetching dashboard data...");
             try {
                 const [priceRes, eventRes, cpRes] = await Promise.all([
-                    fetch('/api/prices').then(res => res.json()),
-                    fetch('/api/events').then(res => res.json()),
-                    fetch('/api/change-points').then(res => res.json())
+                    fetch('/api/prices').then(res => {
+                        if (!res.ok) throw new Error(`Prices API failed: ${res.status}`);
+                        return res.json();
+                    }),
+                    fetch('/api/events').then(res => {
+                        if (!res.ok) throw new Error(`Events API failed: ${res.status}`);
+                        return res.json();
+                    }),
+                    fetch('/api/change-points').then(res => {
+                        if (!res.ok) throw new Error(`Change points API failed: ${res.status}`);
+                        return res.json();
+                    })
                 ]);
 
-                setPrices(priceRes);
-                setEvents(eventRes);
-                setChangePoints(cpRes.change_points);
+                console.log("Data received:", {
+                    pricesCount: priceRes.length,
+                    eventsCount: eventRes.length,
+                    hasChangePoints: !!cpRes.change_points
+                });
 
-                if (priceRes.length > 0) {
+                setPrices(priceRes || []);
+                setEvents(eventRes || []);
+                setChangePoints(cpRes.change_points || []);
+
+                if (priceRes && priceRes.length > 0) {
                     setStartDate(priceRes[0].Date);
                     setEndDate(priceRes[priceRes.length - 1].Date);
                 }
 
                 setLoading(false);
             } catch (error) {
-                console.error("Error fetching dashboard data:", error);
+                console.error("CRITICAL DASHBOARD ERROR:", error);
+                // Set fallback data for demo if API fails
+                setChangePoints([{
+                    date: "2021-12-05",
+                    label: "Demo Mode (API ERROR)",
+                    mu_before: 62.10,
+                    mu_after: 99.31,
+                    percentage_change: 60.0
+                }]);
                 setLoading(false);
             }
         };
@@ -108,20 +132,20 @@ function App() {
             <div className="metrics-grid">
                 <MetricsCard
                     title="Current Price Regime"
-                    value={`$${changePoints[0]?.mu_after.toFixed(2)}`}
-                    subValue={`+${changePoints[0]?.percentage_change}% Shift`}
+                    value={`$${changePoints[0]?.mu_after?.toFixed(2) || '0.00'}`}
+                    subValue={`+${changePoints[0]?.percentage_change?.toFixed(1) || '0.0'}% Shift`}
                     color="#10b981"
                 />
                 <MetricsCard
                     title="Historical Baseline"
-                    value={`$${changePoints[0]?.mu_before.toFixed(2)}`}
+                    value={`$${changePoints[0]?.mu_before?.toFixed(2) || '0.00'}`}
                     subValue="Pre-2021 Mean"
                     color="#6b7280"
                 />
                 <MetricsCard
                     title="Detected Change Point"
-                    value={changePoints[0]?.date}
-                    subValue={changePoints[0]?.label}
+                    value={changePoints[0]?.date || 'N/A'}
+                    subValue={changePoints[0]?.label || 'No change point detected'}
                     color="#3b82f6"
                 />
             </div>
