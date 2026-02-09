@@ -1,12 +1,13 @@
 import React from 'react';
 import { AlertCircle } from 'lucide-react';
 
-const EventHighlight = ({ event, isActive, onHover, onLeave }) => {
+const EventHighlight = ({ event, isActive, onHover, onLeave, onClick }) => {
     return (
         <div
             className={`event-item ${isActive ? 'active' : ''}`}
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
+            onClick={onClick}
             style={{
                 padding: '1.25rem',
                 borderRadius: '1rem',
@@ -48,14 +49,27 @@ const EventHighlight = ({ event, isActive, onHover, onLeave }) => {
                         {event.Event}
                     </div>
                     {isActive && (
-                        <p style={{
-                            margin: '0.5rem 0 0 0',
-                            fontSize: '0.85rem',
-                            color: 'var(--text-muted)',
-                            lineHeight: '1.5'
-                        }}>
-                            {event.Description}
-                        </p>
+                        <div style={{ marginTop: '0.5rem' }}>
+                            <p style={{
+                                margin: '0',
+                                fontSize: '0.85rem',
+                                color: 'var(--text-muted)',
+                                lineHeight: '1.5'
+                            }}>
+                                {event.Description}
+                            </p>
+                            <div style={{
+                                marginTop: '0.5rem',
+                                fontSize: '0.7rem',
+                                color: 'var(--primary)',
+                                fontWeight: '700',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.25rem'
+                            }}>
+                                CLICK FOR IMPACT ANALYSIS
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>

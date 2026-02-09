@@ -3,6 +3,8 @@ import PriceChart from './components/PriceChart';
 import EventHighlight from './components/EventHighlight';
 import MetricsCard from './components/MetricsCard';
 import DateFilter from './components/DateFilter';
+import ImpactModal from './components/ImpactModal';
+import InsightSection from './components/InsightSection';
 import './App.css';
 
 function App() {
@@ -11,10 +13,13 @@ function App() {
     const [changePoints, setChangePoints] = useState([]);
     const [loading, setLoading] = useState(true);
     const [activeEvent, setActiveEvent] = useState(null);
+    const [selectedImpactEvent, setSelectedImpactEvent] = useState(null);
 
     // Filtering state
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
+    const [category, setCategory] = useState('All');
+    const [impactLevel, setImpactLevel] = useState('All');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,7 +34,6 @@ function App() {
                 setEvents(eventRes);
                 setChangePoints(cpRes.change_points);
 
-                // Initialize filters with full range
                 if (priceRes.length > 0) {
                     setStartDate(priceRes[0].Date);
                     setEndDate(priceRes[priceRes.length - 1].Date);
@@ -45,20 +49,36 @@ function App() {
         fetchData();
     }, []);
 
-    // Filter prices and events based on selected range
-    const { filteredPrices, filteredEvents } = useMemo(() => {
-        if (!startDate || !endDate) return { filteredPrices: prices, filteredEvents: events };
+    const filteredData = useMemo(() => {
+        let p = prices;
+        let e = events;
 
-        return {
-            filteredPrices: prices.filter(p => p.Date >= startDate && p.Date <= endDate),
-            filteredEvents: events.filter(e => e.Date >= startDate && e.Date <= endDate)
-        };
-    }, [prices, events, startDate, endDate]);
+        if (startDate && endDate) {
+            p = p.filter(item => item.Date >= startDate && item.Date <= endDate);
+            e = e.filter(item => item.Date >= startDate && item.Date <= endDate);
+        }
+
+        if (category !== 'All') {
+            e = e.filter(item => item.Category === category);
+        }
+
+        if (impactLevel !== 'All') {
+            e = e.filter(item => item.Impact === impactLevel);
+        }
+
+        return { filteredPrices: p, filteredEvents: e };
+    }, [prices, events, startDate, endDate, category, impactLevel]);
+
+    const currentActiveEvent = useMemo(() => {
+        return events.find(e => e.Date === activeEvent) || events[events.length - 1];
+    }, [events, activeEvent]);
 
     const handleReset = () => {
         if (prices.length > 0) {
             setStartDate(prices[0].Date);
             setEndDate(prices[prices.length - 1].Date);
+            setCategory('All');
+            setImpactLevel('All');
         }
     };
 
@@ -70,7 +90,7 @@ function App() {
         <div className="dashboard-container">
             <header className="dashboard-header">
                 <h1>Brent Oil Analysis Dashboard</h1>
-                <p>Interactive exploration of price trends and change points</p>
+                <p>Advanced interactive exploration of price trends and event impacts</p>
             </header>
 
             <DateFilter
@@ -78,6 +98,10 @@ function App() {
                 endDate={endDate}
                 onStartChange={setStartDate}
                 onEndChange={setEndDate}
+                selectedCategory={category}
+                onCategoryChange={setCategory}
+                selectedImpact={impactLevel}
+                onImpactChange={setImpactLevel}
                 onReset={handleReset}
             />
 
@@ -105,28 +129,42 @@ function App() {
             <main className="dashboard-main">
                 <div className="chart-section">
                     <PriceChart
-                        data={filteredPrices}
+                        data={filteredData.filteredPrices}
                         changePoints={changePoints}
-                        events={filteredEvents}
+                        events={filteredData.filteredEvents}
                         activeEvent={activeEvent}
                     />
                 </div>
 
                 <aside className="events-sidebar">
-                    <h2>Significant Events</h2>
+                    <h2>Significant Events ({filteredData.filteredEvents.length})</h2>
                     <div className="events-list">
-                        {filteredEvents.map((event, index) => (
+                        {filteredData.filteredEvents.map((event, index) => (
                             <EventHighlight
                                 key={index}
                                 event={event}
                                 isActive={activeEvent === event.Date}
                                 onHover={() => setActiveEvent(event.Date)}
                                 onLeave={() => setActiveEvent(null)}
+                                onClick={() => setSelectedImpactEvent(event)}
                             />
                         ))}
                     </div>
                 </aside>
             </main>
+
+            <InsightSection
+                changePoint={changePoints[0]}
+                activeEvent={currentActiveEvent}
+            />
+
+            {selectedImpactEvent && (
+                <ImpactModal
+                    event={selectedImpactEvent}
+                    prices={prices}
+                    onClose={() => setSelectedImpactEvent(null)}
+                />
+            )}
         </div>
     );
 }

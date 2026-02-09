@@ -77,6 +77,7 @@ body {
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
+  min-height: 600px;
 }
 
 .events-sidebar {
@@ -123,6 +124,7 @@ body {
   background-color: var(--bg-dark);
 }
 
+/* Base Desktop Queries */
 @media (max-width: 1280px) {
   .dashboard-main {
     grid-template-columns: 1fr;
@@ -130,5 +132,79 @@ body {
 
   .events-sidebar {
     max-height: 500px;
+  }
+}
+
+/* Mobile & Tablet Refinements */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 1.5rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 2.25rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .chart-section {
+    padding: 1.25rem;
+    border-radius: 1rem;
+    height: 400px;
+  }
+
+  .filters-container .date-filter-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .filters-container .divider {
+    display: none;
+  }
+
+  .filters-container .filter-group {
+    justify-content: space-between;
+  }
+
+  .filters-container .reset-btn {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  .insight-section {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-overlay {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
   }
 }

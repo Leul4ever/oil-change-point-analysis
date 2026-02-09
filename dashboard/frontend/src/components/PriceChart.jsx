@@ -31,8 +31,8 @@ const PriceChart = ({ data, changePoints, events, activeEvent }) => {
     };
 
     return (
-        <div style={{ width: '100%', height: '100%', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-            <div style={{ height: 420 }}>
+        <div style={{ width: '100%', flex: 1, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+            <div style={{ flex: 1, minHeight: '500px' }}>
                 <ResponsiveContainer>
                     <LineChart
                         data={data}
@@ -70,11 +70,32 @@ const PriceChart = ({ data, changePoints, events, activeEvent }) => {
                             animationDuration={1500}
                         />
 
+                        {/* Permanent Event Markers */}
+                        {events.map((event, idx) => {
+                            const point = data.find(p => p.Date === event.Date);
+                            if (!point) return null;
+                            return (
+                                <ReferenceLine
+                                    key={`marker-${idx}`}
+                                    x={event.Date}
+                                    stroke={event.Impact === 'High' ? 'rgba(239, 68, 68, 0.4)' : 'rgba(96, 165, 250, 0.2)'}
+                                    strokeWidth={event.Impact === 'High' ? 2 : 1}
+                                    label={{
+                                        position: 'top',
+                                        value: '!',
+                                        fill: event.Impact === 'High' ? '#ef4444' : '#60a5fa',
+                                        fontSize: 10,
+                                        fontWeight: 'bold'
+                                    }}
+                                />
+                            );
+                        })}
+
                         {changePoints.map((cp, idx) => (
                             <ReferenceLine
                                 key={idx}
                                 x={cp.date}
-                                stroke="#eab308"
+                                stroke="#3b82f6"
                                 strokeDasharray="4 4"
                                 strokeWidth={2}
                             />
@@ -84,7 +105,8 @@ const PriceChart = ({ data, changePoints, events, activeEvent }) => {
                             <ReferenceLine
                                 x={activeEvent}
                                 stroke="#10b981"
-                                strokeWidth={2}
+                                strokeWidth={3}
+                                strokeDasharray="none"
                             />
                         )}
                     </LineChart>
