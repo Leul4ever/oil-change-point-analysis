@@ -8,21 +8,52 @@ const EventHighlight = ({ event, isActive, onHover, onLeave }) => {
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
             style={{
-                padding: '1rem',
-                borderRadius: '0.5rem',
-                backgroundColor: isActive ? 'rgba(59, 130, 246, 0.1)' : 'transparent',
-                border: `1px solid ${isActive ? '#3b82f6' : 'rgba(255,255,255,0.05)'}`,
+                padding: '1.25rem',
+                borderRadius: '1rem',
+                backgroundColor: isActive ? 'rgba(96, 165, 250, 0.1)' : 'rgba(255, 255, 255, 0.02)',
+                border: `1px solid ${isActive ? 'rgba(96, 165, 250, 0.3)' : 'transparent'}`,
                 cursor: 'pointer',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                position: 'relative',
+                marginBottom: '0.75rem'
             }}
         >
-            <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'flex-start' }}>
-                <AlertCircle size={18} color={isActive ? '#3b82f6' : '#94a3b8'} style={{ marginTop: '2px' }} />
-                <div>
-                    <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{event.Date}</div>
-                    <div style={{ fontWeight: '600', fontSize: '0.9rem', marginBottom: '0.25rem' }}>{event.Event}</div>
+            <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
+                <div style={{
+                    padding: '0.5rem',
+                    borderRadius: '0.5rem',
+                    backgroundColor: isActive ? 'rgba(96, 165, 250, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <AlertCircle size={16} color={isActive ? '#60a5fa' : '#64748b'} />
+                </div>
+                <div style={{ flex: 1 }}>
+                    <div style={{
+                        fontSize: '0.7rem',
+                        fontWeight: '600',
+                        color: isActive ? '#60a5fa' : 'var(--text-muted)',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em'
+                    }}>
+                        {event.Date}
+                    </div>
+                    <div style={{
+                        fontWeight: '600',
+                        fontSize: '0.95rem',
+                        color: 'var(--text-main)',
+                        marginTop: '0.25rem'
+                    }}>
+                        {event.Event}
+                    </div>
                     {isActive && (
-                        <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: '1.4' }}>
+                        <p style={{
+                            margin: '0.5rem 0 0 0',
+                            fontSize: '0.85rem',
+                            color: 'var(--text-muted)',
+                            lineHeight: '1.5'
+                        }}>
                             {event.Description}
                         </p>
                     )}
