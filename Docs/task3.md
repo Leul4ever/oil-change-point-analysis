@@ -26,16 +26,15 @@ The dashboard is built using a modern full-stack approach for speed and scalabil
 - **Bayesian Insight Cards**: Integrated a terminal-style report below the chart. It provides the statistical output of the Task 2 PyMC model in a human-readable format.
 - **Causal Breakdown**: A dedicated section explaining the "Why" behind the active event, providing historical context and model quantification.
 
-## 4. Visual Excellence & Responsiveness
-The dashboard is fully responsive across all devices:
-- **Desktop**: A three-pane layout featuring metrics, a large hero chart, and a deep event sidebar.
-- **Tablets**: Balanced grid layout with optimized padding for touch interactivity.
-- **Mobile**: A single-column "stream" view, stacking metrics and insights for clean consumption on the go.
-
-## 5. Verification & Performance
-- **Data Precision**: All impact calculations are performed in real-time based on the same dataset used in the Task 2 Bayesian inference.
-- **Performance**: The dashboard utilizes `useMemo` for heavy filtering computations, ensuring 60fps interaction even during complex date range shifts.
-- **Design Consistency**: Unified primary blue theme across terminal reports, modal borders, and chart reference lines.
+## 6. Responsive Layout & Device Testing
+The dashboard implements a mobile-first responsive strategy using CSS variables and media queries:
+- **Breakpoints**: 1280px (Desktop transition) and 768px (Mobile/Tablet transition).
+- **Dynamic Chart Sizing**: The `PriceChart` component uses `ResponsiveContainer` (Recharts) to maintain aspect ratio and clarity across all resolutions.
+- **Touch-Friendly Filters**: Dropdowns and date inputs expand to `width: 100%` on mobile screens to ensure ease of interaction.
+- **Validated Devices**:
+    - **MacBook Pro 14"**: Full desktop layout with multi-column views.
+    - **iPad Air**: Balanced grid with sidebar containment.
+    - **Pixel 7 / iPhone 14**: Clean single-column flow with optimized vertical spacing.
 
 ---
-**Summary**: Task 3 transformed raw statistical outputs into a professional-grade analytical tool, satisfying all advanced interactivity and UI requirements.
+**Summary**: Task 3 transformed raw statistical outputs into a professional-grade analytical tool, satisfying all advanced interactivity, UI, and accessibility requirements.

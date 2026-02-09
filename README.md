@@ -52,6 +52,23 @@ oil-change-point-analysis/
 
 ---
 
+## 📱 Responsiveness & Browser Support
+The dashboard is engineered for a seamless multi-device experience, utilizing CSS Grid and Flexbox with the following validated breakpoints:
+
+- **Desktop (>1280px)**: Three-pane layout (Metrics, Price Chart, Event Sidebar).
+- **Tablet (768px - 1279px)**: Optimized grid where the Event Sidebar scales to the viewport height.
+- **Mobile (<768px)**: Single-column stacked layout.
+    - **Header & Filters**: Stacked vertically for finger-friendly selection.
+    - **Metrics Grid**: Becomes 1-column responsive tiles.
+    - **Sidebar**: Transitions to a bottom-weighted section for logical content flow.
+
+### Tested Screen Sizes
+- **Large Desktop**: 1920x1080, 1600x900
+- **Tablet**: iPad Pro/Air Portrait (820px, 768px)
+- **Mobile**: iPhone 12/13/14 (390px, 414px)
+
+---
+
 ## ⚡ Quick Start
 
 ### 1. Prerequisites
